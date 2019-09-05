@@ -6,31 +6,37 @@
 
 header {
   margin: 0px;
-  background: green;
+  padding: 0px;
+  height: 100px;
+  background: yellow;
+
+  
 }
 body {
-  margin: 0px;
+  margin: 0px 20px;
   padding: 0px;
-  background: gray;
+  background: white;
 }
 nav {
-  margin: 0;
-  display: flex;
+  margin: ;
+  /*display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: center;*/
+
+  background: pink;
 }
 
 ul {
   background: blue;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   display: flex;
-  text-align: center;
+  /*text-align: center;*/
   flex-direction: row;
   list-style-type: none;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  border: 2px solid black;
+  /*border: 1px solid black;*/
 }
 
 li {
@@ -38,11 +44,15 @@ li {
   color: white;
   margin-left: auto;
   margin-right: auto;
-  width: 80px;
+  padding: 20px 0;
+  width: 20%;
+  /*width: 90px;*/
   display: inline-block;
   padding: 0px 20px;
   background: rgb(255, 44, 44);
-  
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 5px 5px 0 0;
 }
 
 a {
