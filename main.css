@@ -6,7 +6,7 @@ body {
   
   margin: 0px 20px;
   padding: 0px;
-  background: rgb(78, 78, 78);
+  background: rgb(138, 138, 138);
   font-family: "Helvetica", "Arial", sans-serif;
 }
 
@@ -22,11 +22,11 @@ nav {
   flex-direction: row;
   justify-content: center;*/
 
-  background: pink;
+  background: none;
 }
 
 ul {
-  background: blue;
+  background: none;
   margin: 0;
   padding: 0;
   display: flex;
@@ -55,6 +55,12 @@ nav ul li {
   border-radius: 5px 5px 0 0;
 }
 
+li.current {
+  background: linear-gradient(red, pink);
+  color: gray;
+  border-bottom: none;
+}
+
 div.topbreak {
   padding: 0 1em;
   display: flex;
@@ -65,12 +71,18 @@ div.seconddiv {
   display: inline-block;
 }
 
-a {
+li a {
   color: white;
+  text-decoration: none;
+}
+
+li a:hover {
+  text-decoration: underline;
 }
 
 footer {
-  padding: 0px;
-  margin: 0px;
   background: pink;
+  border: 1px solid black;
+  border-top: none;
 }
+
