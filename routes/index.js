@@ -30,6 +30,11 @@ router.get('/signup', function(req, res, next) {
 
 router.post('/signup', function(req, res, next){
 
+  user = new User({username: req.body.uname, email: req.body.email
+                    password: req.body.password});
+  user.save(function(err, user){
+    if (err) return console.error(err);
+  })
 });
 
 router.post('/login', function(req, res, next){
