@@ -1,0 +1,33 @@
+{{#each tasks}}
+        <div class='task'>
+            
+            <h1>{{ this.title }} </h1>
+            
+            <br> 
+            <p>{{this.description}}</p>
+            <p class='creator'>from {{this.creator}}</p>
+
+            
+            <div class='imagediv'>
+            {{#each ../images}}
+                <img src='{{this.filepath}}' width='30%'>
+            {{/each}}
+            </div>
+
+
+            {{#unless ../iscreator}}
+            <button onclick='openForm()'>Reply</button>
+            <div id='replyForm'>
+                <form action='/tasks/t/{{this._id}}/reply' method='post' enctype='multipart/form-data'>
+                    <textarea type='text' id='textreply' name='textreply' rows='10' cols='30' maxlength='500'></textarea>
+                    <input type='file' name='image'>
+                    <button type="submit" value='submit'>Submit</button>
+                    <button type='button' onclick="closeForm()">Close</button>
+                    
+                </form>
+            </div>
+            {{/unless}}
+        
+        </div>
+
+    {{/each}}

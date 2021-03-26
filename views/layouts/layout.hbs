@@ -3,10 +3,36 @@
   <head>
     <meta charset='UTF-8'>
     <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css'>
+    <link rel='stylesheet' type='text/css' href='/stylesheets/style.css'>
+
   </head>
   <body>
+    <header>
+      <a href='/'><h1>FastTask</h1></a>
+      <div class='navigation'>
+        
+        <button onclick="document.location='/tasks'">Tasks</button>
+        {{#if isAuth}}
+        <button onclick="document.location='/tasks/{{user.username}}'">My Tasks</button>
+        <form action='/users/logout' method='post'>
+          <button name='logout' value='logout'>Log Out</button>
+        </form> 
+        <button onclick="document.location='/users/{{user.username}}'">Profile</button>
+        {{else}}
+        <button onclick="document.location='/users/login'">Log In</button>
+        <button onclick="document.location='/users/signup'">Sign Up</button>
+        {{/if}}
+          <!--<a href=../tasks>Tasks</a>
+          
+          <a href=../users/login>Log In</a>
+          <a href=../users/signup>Sign Up</a> -->
+      </div>
+    
+
+
+    </header>
     {{{ body }}}
   </body>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="/javascripts/main.js"></script>
 </html>

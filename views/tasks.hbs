@@ -1,0 +1,25 @@
+<!--<h1>{{ title }}</h1> --}}
+<p> Welcome to {{ title }}</p>
+
+
+<p>{{ tasks }}</p> -->
+
+<div class='tasklist'>
+    <ul>
+    {{#each tasks}}
+        <li>
+            <a href='/tasks/t/{{this._id}}'>
+                <h1>{{ this.title }} </h1>
+            </a>
+            <br> 
+            <p>{{this.description}}</p>
+            <p class='creator'>from {{this.creator}}</p>
+            
+            
+            
+        </li>
+
+    {{/each}}
+
+    </ul>
+</div>
