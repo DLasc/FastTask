@@ -10,7 +10,8 @@ var replySchema = mongoose.Schema({
     filepath: {type: String, required: false},
     timestamp: {type: Date, default: Date.now(), required: true},
     creator: {type: String, required: true},
-    creatorId: {type: String, required: true}
+    creatorId: {type: String, required: true},
+    chosen: {type: Boolean, required: true, default: false}
 });//#endregion
 
 

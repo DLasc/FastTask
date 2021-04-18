@@ -11,7 +11,8 @@ var isUser = require('../functions/isUser');
 var multer = require('multer');
 var path = require('path');
 var Reply = require('../models/reply');
-var ReplyImage = require('../models/replyimage')
+var ReplyImage = require('../models/replyimage');
+const User = require('../models/user');
 var storage = multer.diskStorage({ 
     destination: function(req, file, cb){
         cb(null, __dirname + '/../public/images')
@@ -40,7 +41,7 @@ router.get('/', function(req, res, next){
         
     });
     var tasks;
-    Task.find({}).sort({timestamp:-1}).lean().exec(function(err, result){
+    Task.find({active: true}).sort({timestamp:-1}).lean().exec(function(err, result){
         tasks = result;
         console.log(typeof(tasks));
         res.render('tasks', {title: 'Tasks', tasks: tasks})
@@ -72,8 +73,9 @@ router.get('/t/:id', function(req, res, next){
         .then((images) =>{
 
             if (iscreator){
-                Reply.find({active: true, replytotask: id}).sort({timestamp:1}).lean().exec()
+                Reply.findOne({active: true, replytotask: id}).sort({timestamp:1}).lean().exec()
                 .then((replies)=>{
+                    console.log(result)
                     console.log(replies);
                     res.render('tasks/display', {tasks: result, images: images, iscreator: iscreator, replies: replies})
                 })
@@ -96,9 +98,10 @@ router.get('/t/:id', function(req, res, next){
 });
 
 router.post('/t/:id/reply', upload.single('image'), function(req, res, next){
-    Task.findOne({_id:req.params.id})
+    Task.findOne({_id:req.params.id, active: true})
     .exec()
     .then((result) => {
+
         if (result.creatorId === req.session.user._id.toString()) {
             throw new Error('Creator can\'t reply to own task');
         }
@@ -138,7 +141,7 @@ router.post('/t/:id/reply', upload.single('image'), function(req, res, next){
 
 router.get('/t/:id/nextreply', function(req, res, next){
     console.log('entered correct route')
-    Task.find({_id: req.params.id}).lean().exec()
+    Task.find({_id: req.params.id, active: true}).lean().exec()
     .then((result) =>{
         if (req.session.user._id.toString() === result[0].creatorId){
             Reply.findOneAndUpdate({active: true, replytotask: req.params.id}, {active:false}).sort({timestamp:1}).exec()
@@ -146,7 +149,7 @@ router.get('/t/:id/nextreply', function(req, res, next){
                 reply.active = false;
                 reply.save().then((saved)=> {
 
-                    Reply.find({active:true, replytotask: req.params.id}).sort({timestamp:1}).lean().exec()
+                    Reply.findOne({active:true, replytotask: req.params.id}).sort({timestamp:1}).lean().exec()
                     .then((replies) =>{
 
                         // reply.shift()
@@ -179,6 +182,36 @@ router.get('/t/:id/nextreply', function(req, res, next){
     
 })
 
+router.get('/t/:id/choosereply', function(req, res, next){
+    Task.findOne({_id: req.params.id, active: true}).exec()
+    .then((result)=>{
+        if (req.session.user._id.toString() === result.creatorId){
+            result.active = false;
+            result.save()
+            User.findById(result.creatorId).exec()
+            .then((user) =>{
+                user.redcoins += result.value;
+                user.save();
+            }).catch()
+            Reply.find({active: true, replytotask: req.params.id}).sort({timestamp:1}).exec()
+            .then((replies) =>{
+                replies.forEach((element, index) => {
+                    if (index === 0){
+                        element.chosen = true;
+                        element.save();
+                    }
+                    else{
+                        element.active = false;
+                        element.save();
+                    }
+                    res.json({done: true,})
+                });
+                
+            }).catch()
+        }
+    }).catch()
+})
+
 
 
 router.post('/create', isAuth, upload.array('image', 10), function(req, res, next){
@@ -190,7 +223,8 @@ router.post('/create', isAuth, upload.array('image', 10), function(req, res, nex
                         description: req.body.description,
                         timestamp: Date.now(),
                         creator: req.session.user.username,
-                        creatorId: req.session.user._id
+                        creatorId: req.session.user._id,
+                        value: req.body.value
                     });
         task.save().then((result) => {
             for (var i = 0; i < req.files.length; i++){
@@ -198,7 +232,7 @@ router.post('/create', isAuth, upload.array('image', 10), function(req, res, nex
                                 taskid: task._id,
                                 filepath: '/images/' + req.files[i].originalname,
                                 creator: task.creator,
-                                creatorId: task.creatorId
+                                creatorId: task.creatorId,
                                 });
                 image.save().then();
             }

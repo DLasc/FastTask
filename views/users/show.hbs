@@ -1,11 +1,34 @@
-<div class='profile'>
+<div class='profilePage'>
 
-<img src='' alt="{{user.username}}'s profile picture">
+    <div class='profile'>
+        <img class='ProfilePicture' src='{{user.profilePicture}}' alt="{{user.username}}'s profile picture">
 
 
 
-<h1>{{user.username}}</h1>
-<p>Description of User</p>
+        <h1>{{user.username}}</h1>
+        <p>Description of User</p>
+    </div>
+    <div class='tasklist profileTasks'>
+        <ul>
+        {{#each tasks}}
+            <li>
+                <a href='/tasks/t/{{this._id}}'>
+                    <h1>{{ this.title }} </h1>
+                </a>
+                <p class='value'>for {{ this.value }} redcoins</p>
+                <br> 
+                <p>{{this.description}}</p>
+                <p class='creator'>from {{this.creator}}</p>
+            </li>
+        {{else}}
+            <li>
+                <h1>No Tasks Right Now. Please check back later, or <a href='/tasks/create'>Create a Task!</a></h1>
+            </li>
+        {{/each}}
+    
+    </ul>
+    </div>
+   
 
 
 </div>

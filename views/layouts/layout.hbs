@@ -2,30 +2,45 @@
 <html lang='en'>
   <head>
     <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <link rel='stylesheet' type='text/css' href='/stylesheets/style.css'>
 
   </head>
   <body>
     <header>
-      <a href='/'><h1>FastTask</h1></a>
-      <div class='navigation'>
-        
-        <button onclick="document.location='/tasks'">Tasks</button>
-        {{#if isAuth}}
-        <button onclick="document.location='/tasks/{{user.username}}'">My Tasks</button>
-        <form action='/users/logout' method='post'>
-          <button name='logout' value='logout'>Log Out</button>
-        </form> 
-        <button onclick="document.location='/users/{{user.username}}'">Profile</button>
-        {{else}}
-        <button onclick="document.location='/users/login'">Log In</button>
-        <button onclick="document.location='/users/signup'">Sign Up</button>
-        {{/if}}
-          <!--<a href=../tasks>Tasks</a>
+      <div class='navcontainer'>
+        <a href='/'><h1>FastTask</h1></a>
+        <div class='navigation'>
           
-          <a href=../users/login>Log In</a>
-          <a href=../users/signup>Sign Up</a> -->
+          <button class='navbutton' onclick="document.location='/tasks'">All Tasks</button>
+          {{#if isAuth}}
+            <button class='navbutton' onclick="document.location='/tasks/{{user.username}}'">My Tasks</button>
+            
+            <div id='drop'>
+              <a id='navprofilepic' href='/users/{{user.username}}'><img class='navprofilepic' src='{{user.profilePicture}}'></a>
+              <!--<img id='navprofilepic' class='navprofilepic' src='{{user.profilePicture}}'>-->
+              <div class='dropdown' id='dropdown'>
+                <button class='submenu' id='numcoins'>Redcoins: {{{user.redcoins}}}</button>
+                <button class='submenu'onclick="document.location='/users/{{user.username}}'">My Profile</button>
+                <form action='/users/logout' method='post'>
+                  <button class='submenu' name='logout' value='logout'>Log Out</button>
+                </form>
+              
+              </div>
+            </div>
+            
+
+            <!--<button onclick="document.location='/users/{{user.username}}'">{{user.username}}</button>-->
+          {{else}}
+            <button class='navbutton' onclick="document.location='/users/login'">Log In</button>
+            <button class='navbutton' onclick="document.location='/users/signup'">Sign Up</button>
+          {{/if}}
+            <!--<a href=../tasks>Tasks</a>
+            
+            <a href=../users/login>Log In</a>
+            <a href=../users/signup>Sign Up</a> -->
+        </div>
       </div>
     
 

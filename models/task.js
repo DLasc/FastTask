@@ -8,7 +8,10 @@ var taskSchema = mongoose.Schema({
     description: {type: String, required: true},
     timestamp: {type: Date, default: Date.now(), required: true},
     creator: {type: String, required: true},
-    creatorId: {type: String, required: true}
+    creatorId: {type: String, required: true},
+    active: {type: Boolean, required: true, default: true},
+    value: {type: Number, required: true, default: 0},
+    
 });//#endregion
 
 taskSchema.plugin(uniqueValidator);

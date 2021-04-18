@@ -1,6 +1,6 @@
 :root {
-  --background:;
-  --var2:;
+  --background:0;
+  --var2:0;
 }
 
 html{
@@ -8,7 +8,7 @@ html{
 }
 body {
   max-width: 100%;
-  width:100%;
+  /* width:100%; */
   padding: 0px;
   margin: 0px auto;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -31,16 +31,20 @@ body {
 
 header {
   /* font-family: courier; */
+  /* position: absolute; */
+  left:auto;
+  right:auto;
   display:flex;
   align-items: center;
   position: -webkit-sticky;
   position:sticky;
   top:0;
-  max-width: 100%;
+  /* max-width: 10in; */
   width: 100%;
   height: 80px;
   background-color: rgb(231, 231, 231);
   margin: 0 0;
+  /* padding: 0 20%; */
   
 
   
@@ -49,10 +53,24 @@ header h1 {
   margin-left: 30px;
 }
 
+header .navcontainer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 12in;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
 header .navigation {
-  position:absolute;
+  /* position:absolute; */
   padding: 0 20px 0 0;;
-  right:30px;
+  /* right:30px; */
+  /* right: 0; */
+  /* float:right; */
+  margin-left: auto;
+  margin-right: 0;
   display:flex;
   justify-content: flex-end;
   align-items: center;
@@ -62,7 +80,7 @@ header .navigation {
   
 }
 
-.navigation button {
+.navigation .navbutton {
   border-style: solid;
   border-color: #3b52e9;
   border-radius: 50vh;
@@ -74,26 +92,104 @@ header .navigation {
   transition-property: background-color, color;
   transition-duration: 0.2s;
 }
-.navigation button:hover {
+.navigation .navbutton:hover {
   background-color:#3b52e9;
   color: white;
-  cursor: pointer;;
+  cursor: pointer;
 }
 
-.navigation button:active {
+.navigation .navbutton:active {
   outline-style: none;
 }
-.navigation button:focus {
+.navigation .navbutton:focus {
   outline-style: none;
 }
 
 
-.navigation a {
+/* .navigation a {
   padding: 0px 20px;
   color: black;
   text-decoration: none;
   font-size: 35px;
+} */
+.navigation .navprofilepic{
+  margin: auto auto auto 10px;
+  /* width: 40px; */
+  width: 50px;
+  transition: 0.2s ease;
+  
+  border-radius: 50%;
+  border-color: #3b52e9;
+  border-style: solid;
+  border-width: 2px;
+  
 }
+
+.navigation .navprofilepic:hover{
+  opacity: 0.3;
+}
+
+.navigation .dropdown{
+  /* float:right; */
+  padding:2px;
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+  flex-wrap:wrap;
+  align-items: center;
+  border-style: solid;
+  border-top-style: none;
+  border-color: black;
+  border-width: 1px;
+  /* width: auto; */
+  white-space: nowrap;
+  right:0;
+  left:auto;
+  display: none;
+  z-index: 1;
+  position: absolute;
+  
+  background-color: rgb(231,231,231);
+}
+#drop{
+  position:relative;
+  display:inline-block;
+}
+#drop:hover .dropdown{
+  display:block;
+}
+
+.submenu{
+  /* all:unset; */
+  display:block;
+  width:95%;
+  margin-left: auto;
+  margin-right:auto;
+  border-style: solid;
+  border-top-style: none;
+  border-bottom-style:none;
+  margin-top:5px;
+  border-color: #3b52e9;
+  /* border-radius: 50vh; */
+  padding: 10px 20px;
+  /* margin-left: 10px; */
+  color: black;
+  text-decoration: none;
+  font-size: 20px;
+  transition-property: background-color, color;
+  transition-duration: 0.2s;
+}
+
+button.submenu:hover{
+  cursor:pointer;
+  background-color:#3b52e9;
+  color: white;
+  cursor: pointer;
+}
+
+
+
 
 /* a {
   color: #00B7FF;
@@ -144,18 +240,11 @@ header .navigation {
 
 }
 
-.profile {
-  width: 10in;
-  border-radius: 4px;
-  background-color: white;
-  margin: 1.5in auto 0 auto;
-  padding: 20px;
 
-}
 
 
 .home {
-  width: 10in;
+  max-width: 80%;
   margin: 1.5in auto 0 auto;
   padding: 20px;
   /* background-color: white; */
@@ -208,4 +297,34 @@ header .navigation {
 
 #replyDisplay{
   display: none;
+}
+
+.profilePage{
+  display:flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content:center;
+}
+
+.tasklist.profileTasks{
+  margin: 1.5in auto 0 2px;
+}
+
+
+.profile {
+  border-radius: 4px;
+  background-color: white;
+  margin: 1.5in 2px 0 auto;
+  padding: 20px;
+  width: 17%;
+  text-align: center;
+}
+
+
+
+.profile img{
+  width: 70%;
+  border-radius:50%;
+  margin-left: auto; 
+  margin-right: auto;
 }

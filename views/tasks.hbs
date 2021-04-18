@@ -11,6 +11,7 @@
             <a href='/tasks/t/{{this._id}}'>
                 <h1>{{ this.title }} </h1>
             </a>
+            <p class='value'>for {{ this.value }} redcoins</p>
             <br> 
             <p>{{this.description}}</p>
             <p class='creator'>from {{this.creator}}</p>
@@ -18,8 +19,12 @@
             
             
         </li>
-
+    {{else}}
+        <li>
+            <h1>No Tasks Right Now. Please check back later, or <a href='/tasks/create'>Create a Task!</a></h1>
+        </li>
     {{/each}}
-
+    
     </ul>
+    
 </div>

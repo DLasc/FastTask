@@ -17,7 +17,29 @@ function closeReplies(){
 }
 
 
+
+
 $('document').ready(function(){
+
+    // $('#navprofilepic').click(function(){
+    //     $('#dropdown').toggle()
+    // })
+
+    $('#choosereply').click(function(){
+        $.ajax(window.location.pathname + '/choosereply', {
+            success: function(result, status, xhr){
+                if (result.done){
+                    $('#nextreply').hide()
+                    $('#choosereply').hide()
+                }
+                
+            }
+        })
+
+
+
+    })
+    //nextreply function
     $('#nextreply').click(function(){
         if ($('#replyimage').is(':visible')){
             $.ajax(window.location.pathname + '/nextreply', {
@@ -26,10 +48,13 @@ $('document').ready(function(){
                     // console.log(result);
                     // console.log(status)
                     // console.log(xhr)
-                    if (result.replies[0]){
-                        $('#replyparagraph').html(result.replies[0].textcontent);
-                        $('#replyimage').show()
-                        $('#replyimage').attr('src', result.replies[0].filepath);
+                    if (result.replies){
+                        $('#replyparagraph').html(result.replies.textcontent);
+                        if (result.filepath){
+                            $('#replyimage').show()
+                            $('#replyimage').attr('src', result.replies.filepath);
+                        }
+                        else { $('#replyimage').hide()}
                     }
                     else{
                         $('#replyparagraph').html('');
