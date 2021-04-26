@@ -1,6 +1,11 @@
 :root {
   --background:0;
   --var2:0;
+  --contrast:#ff331f;
+  --white:#fbfbff;
+  --black:#0d0106;
+  --lightcomplement:#657ed4;
+  --darkcomplement:#3626a7;
 }
 
 html{
@@ -21,8 +26,8 @@ body {
   #465298 20px
   ); */
   /* background: radial-gradient(circle at center, #3749b1, #3b52e9); */
-  background: radial-gradient(circle at center, #405aee, #05188f);
- 
+  /* background: radial-gradient(circle at center, var(--lightcomplement), var(--darkcomplement)); */
+  background: var(--darkcomplement);
 
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -42,7 +47,7 @@ header {
   /* max-width: 10in; */
   width: 100%;
   height: 80px;
-  background-color: rgb(231, 231, 231);
+  background-color: var(--white);
   margin: 0 0;
   /* padding: 0 20%; */
   
@@ -79,22 +84,30 @@ header .navigation {
   margin-right: 0;
   
 }
+.navcontainer a{
+  text-decoration: none;
+  color: var(--contrast);
+}
+.navcontainer a, .navcontainer a:link, .navcontainer a:visited, .navcontainer a:hover, .navcontainer a:active {
+  text-decoration: none;
+  color: var(--contrast);
+}
 
 .navigation .navbutton {
   border-style: solid;
-  border-color: #3b52e9;
+  border-color: var(--lightcomplement);
   border-radius: 50vh;
   padding: 10px 20px;
   margin-left: 10px;
-  color: black;
+  color: var(--black);
   text-decoration: none;
   font-size: 20px;
   transition-property: background-color, color;
   transition-duration: 0.2s;
 }
 .navigation .navbutton:hover {
-  background-color:#3b52e9;
-  color: white;
+  background-color:var(--lightcomplement);
+  color: var(--white);
   cursor: pointer;
 }
 
@@ -119,7 +132,7 @@ header .navigation {
   transition: 0.2s ease;
   
   border-radius: 50%;
-  border-color: #3b52e9;
+  border-color: var(--lightcomplement);
   border-style: solid;
   border-width: 2px;
   
@@ -140,7 +153,7 @@ header .navigation {
   align-items: center;
   border-style: solid;
   border-top-style: none;
-  border-color: black;
+  border-color: var(--black);
   border-width: 1px;
   /* width: auto; */
   white-space: nowrap;
@@ -150,7 +163,7 @@ header .navigation {
   z-index: 1;
   position: absolute;
   
-  background-color: rgb(231,231,231);
+  background-color: var(--white);
 }
 #drop{
   position:relative;
@@ -170,11 +183,11 @@ header .navigation {
   border-top-style: none;
   border-bottom-style:none;
   margin-top:5px;
-  border-color: #3b52e9;
+  border-color: var(--lightcomplement);
   /* border-radius: 50vh; */
   padding: 10px 20px;
   /* margin-left: 10px; */
-  color: black;
+  color: var(--black);
   text-decoration: none;
   font-size: 20px;
   transition-property: background-color, color;
@@ -183,8 +196,8 @@ header .navigation {
 
 button.submenu:hover{
   cursor:pointer;
-  background-color:#3b52e9;
-  color: white;
+  background-color:var(--lightcomplement);
+  color: var(--white);
   cursor: pointer;
 }
 
@@ -216,13 +229,13 @@ button.submenu:hover{
   width:100%;
   margin: auto;
   padding:6px;
-  background-color: rgb(187, 187, 187);
+  background-color: var(--darkcomplement);
 }
 
 .tasklist ul li{
   border-radius:4px;
   height: 2in;
-  background-color: white;
+  background-color: var(--white);
   margin: 0 0 10px;
   padding: 20px;
 }
@@ -234,7 +247,7 @@ button.submenu:hover{
 .task {
   width: 10in;
   border-radius: 4px;
-  background-color: white;
+  background-color: var(--white);
   margin: 1.5in auto 0 auto;
   padding: 20px;
 
@@ -253,12 +266,12 @@ button.submenu:hover{
 
 .home button {
   border-style: solid;
-  border-color: #3b52e9;
+  border-color: var(--lightcomplement);
   width: 30%;
   border-radius: 50vh;
   padding: 10px 20px;
   margin-left: 10px;
-  color: black;
+  color: var(--black);
   text-decoration: none;
   font-size: 20px;
   transition-property: background-color, color;
@@ -266,8 +279,8 @@ button.submenu:hover{
 }
 
 .home button:hover { 
-  background-color:#3b52e9;
-  color: white;
+  background-color:var(--lightcomplement);
+  color: var(--white);
   cursor: pointer;;
 }
 .home button:hover { 
@@ -280,7 +293,7 @@ button.submenu:hover{
   padding: 20px;
   border-radius: 10px;
   
-  background-color: white;
+  background-color: var(--white);
 }
 
 .form #description {
@@ -313,7 +326,7 @@ button.submenu:hover{
 
 .profile {
   border-radius: 4px;
-  background-color: white;
+  background-color: var(--white);
   margin: 1.5in 2px 0 auto;
   padding: 20px;
   width: 17%;
