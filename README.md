@@ -2,6 +2,10 @@
 
 In an increasingly competitive world, FastTask is envisioned to take advantage of this competition by allowing any user to post a job similarly to a competition that upon first valid completion will award the creator of the response the prize currency. This promotes quick work and responses for users in need of urgent help.
 
+# Current Features
+
+User signup, task posting and response system is fully operational as well as account balances. 
+
 # WIP
 
 This current implementation is meant to be an MVP of the project.
