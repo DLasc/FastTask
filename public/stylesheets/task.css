@@ -1,0 +1,45 @@
+.creator {
+    color: grey;
+  }
+  
+  
+  
+  .tasklist {
+    width: 8in;
+    margin-top: 1.5in;
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: grey; */
+    padding:0;
+    /* text-align: center; */
+  }
+  
+  .tasklist ul{
+    border-radius:4px;
+    list-style-type: none;
+    width:100%;
+    margin: auto;
+    padding:0 6px;
+    background-color: var(--darkcomplement);
+  }
+  
+  .tasklist ul li{
+    border-radius:4px;
+    height: 2in;
+    background-color: var(--white);
+    margin: 0 0 10px;
+    padding: 20px;
+  }
+  
+  .tasklist ul li h1{
+  
+  }
+  
+  .task {
+    width: 10in;
+    border-radius: 4px;
+    background-color: var(--white);
+    margin: 1.5in auto 0 auto;
+    padding: 20px;
+  
+  }

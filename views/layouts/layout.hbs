@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <link rel='stylesheet' type='text/css' href='/stylesheets/style.css'>
+    <link rel='stylesheet' type='text/css' href='/stylesheets/navigation.css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/task.css">
   </head>
   <body>
     <header>
@@ -33,8 +35,8 @@
 
             <!--<button onclick="document.location='/users/{{user.username}}'">{{user.username}}</button>-->
           {{else}}
-            <button class='navbutton' onclick="document.location='/users/login'">Log In</button>
-            <button class='navbutton' onclick="document.location='/users/signup'">Sign Up</button>
+            <button class='navbutton login' onclick="document.location='/users/login'">Log In</button>
+            <button class='navbutton signup' onclick="document.location='/users/signup'">Sign Up</button>
           {{/if}}
             <!--<a href=../tasks>Tasks</a>
             
