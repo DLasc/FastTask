@@ -23,9 +23,14 @@ var store = new MongoDBSession({
   collection: "mySessions",
 });
 // view engine setup
-app.engine('hbs', hbs({extname:'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/'}));
+app.engine('hbs', hbs({extname:'hbs',
+                  helpers: require('./config/handlebarsHelpers'),
+                  defaultLayout: 'layout', 
+                  layoutsDir: __dirname + '/views/layouts/'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -67,5 +72,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

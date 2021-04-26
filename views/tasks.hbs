@@ -11,7 +11,7 @@
             <a href='/tasks/t/{{this._id}}'>
                 <h1>{{ this.title }} </h1>
             </a>
-            <p class='value'>for {{ this.value }} redcoins</p>
+            <p class='value'><i class="material-icons taskredcoin">camera</i><span class="numcoins">{{numformat this.value }}</span></p>
             <br> 
             <p>{{this.description}}</p>
             <p class='creator'>from {{this.creator}}</p>

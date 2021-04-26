@@ -34,6 +34,43 @@ body {
   
 }
 
+.material-icons.navredcoin {
+  color: var(--contrast);
+  /* color: var(--white); */
+  /* background-color: black; */
+  position:relative;
+  vertical-align: middle;
+  border-radius:50%;
+  border-width: 0px;
+  /* border-color: var(--contrast); */
+  /* background-color: var(--contrast); */
+  /* background-color:gold; */
+  /* margin-bottom:2px; */
+  /* font-size: 20px; */
+  /* top:10px; */
+  /* top:5px; */
+}
+
+.material-icons.taskredcoin {
+ color: var(--contrast);
+ position:relative;
+ vertical-align:middle;
+ font-size: 18px;
+}
+
+.numcoins{
+  display: inline-block;
+  vertical-align: middle;
+  /* background:blue; */
+  /* padding:20px; */
+}
+#numcoins{
+  justify-content:center;
+  display:flex;
+  align-items: flex-end;
+
+}
+
 header {
   /* font-family: courier; */
   /* position: absolute; */
@@ -88,10 +125,7 @@ header .navigation {
   text-decoration: none;
   color: var(--contrast);
 }
-.navcontainer a, .navcontainer a:link, .navcontainer a:visited, .navcontainer a:hover, .navcontainer a:active {
-  text-decoration: none;
-  color: var(--contrast);
-}
+
 
 .navigation .navbutton {
   border-style: solid;
@@ -184,6 +218,7 @@ header .navigation {
   border-bottom-style:none;
   margin-top:5px;
   border-color: var(--lightcomplement);
+  justify-content: center;
   /* border-radius: 50vh; */
   padding: 10px 20px;
   /* margin-left: 10px; */
@@ -200,7 +235,6 @@ button.submenu:hover{
   color: var(--white);
   cursor: pointer;
 }
-
 
 
 
@@ -228,7 +262,7 @@ button.submenu:hover{
   list-style-type: none;
   width:100%;
   margin: auto;
-  padding:6px;
+  padding:0 6px;
   background-color: var(--darkcomplement);
 }
 
@@ -329,14 +363,14 @@ button.submenu:hover{
   background-color: var(--white);
   margin: 1.5in 2px 0 auto;
   padding: 20px;
-  width: 17%;
+  width: 14%;
   text-align: center;
 }
 
 
 
 .profile img{
-  width: 70%;
+  width: 80%;
   border-radius:50%;
   margin-left: auto; 
   margin-right: auto;

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <link rel='stylesheet' type='text/css' href='/stylesheets/style.css'>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
     <header>
@@ -21,7 +21,7 @@
               <a id='navprofilepic' href='/users/{{user.username}}'><img class='navprofilepic' src='{{user.profilePicture}}'></a>
               <!--<img id='navprofilepic' class='navprofilepic' src='{{user.profilePicture}}'>-->
               <div class='dropdown' id='dropdown'>
-                <button class='submenu' id='numcoins'>Redcoins: {{{user.redcoins}}}</button>
+                <button class='submenu' id='numcoins'><i class="material-icons navredcoin">camera</i><span class="numcoins">{{numformat user.redcoins}}</span></button>
                 <button class='submenu'onclick="document.location='/users/{{user.username}}'">My Profile</button>
                 <form action='/users/logout' method='post'>
                   <button class='submenu' name='logout' value='logout'>Log Out</button>
