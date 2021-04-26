@@ -28,4 +28,4 @@ benchmarks/graphs
 
 # Images
 public/images/*
-!public/images/Defaut_Portrait.png
+!public/images/Default_Portrait.png
