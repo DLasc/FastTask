@@ -1,38 +1,4 @@
-:root {
-  --background:0;
-  --var2:0;
-  --contrast:#ff331f;
-  --white:#fbfbff;
-  --black:#0d0106;
-  --lightcomplement:#657ed4;
-  --darkcomplement:#3626a7;
-}
 
-html{
-  width:100%;
-}
-body {
-  max-width: 100%;
-  /* width:100%; */
-  padding: 0px;
-  margin: 0px auto;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  
-  /* background: repeating-linear-gradient(
-  45deg,
-  #606dbc,
-  #606dbc 10px,
-  #465298 10px,
-  #465298 20px
-  ); */
-  /* background: radial-gradient(circle at center, #3749b1, #3b52e9); */
-  /* background: radial-gradient(circle at center, var(--lightcomplement), var(--darkcomplement)); */
-  background: var(--darkcomplement);
-
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  
-}
 
 .material-icons.navredcoin {
   color: var(--contrast);
@@ -236,57 +202,9 @@ button.submenu:hover{
   cursor: pointer;
 }
 
-
-
-/* a {
-  color: #00B7FF;
-} */
-.creator {
-  color: grey;
+.signup {
+  border-color: var(--contrast);
 }
-
-
-
-.tasklist {
-  width: 8in;
-  margin-top: 1.5in;
-  margin-left: auto;
-  margin-right: auto;
-  /* background-color: grey; */
-  padding:0;
-  /* text-align: center; */
-}
-
-.tasklist ul{
-  border-radius:4px;
-  list-style-type: none;
-  width:100%;
-  margin: auto;
-  padding:0 6px;
-  background-color: var(--darkcomplement);
-}
-
-.tasklist ul li{
-  border-radius:4px;
-  height: 2in;
-  background-color: var(--white);
-  margin: 0 0 10px;
-  padding: 20px;
-}
-
-.tasklist ul li h1{
-
-}
-
-.task {
-  width: 10in;
-  border-radius: 4px;
-  background-color: var(--white);
-  margin: 1.5in auto 0 auto;
-  padding: 20px;
-
-}
-
 
 
 

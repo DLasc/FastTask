@@ -61,7 +61,7 @@ router.get('/t/:id', function(req, res, next){
     Task.find({_id: id}).lean()
     .exec()
     .then((result) =>{
-        if (result[0].creatorId === req.session.user._id.toString()){
+        if (req.session.user && (result[0].creatorId === req.session.user._id.toString())){
             var iscreator = true;
         }
         else{
@@ -84,7 +84,7 @@ router.get('/t/:id', function(req, res, next){
             else {
             // imagepaths = images;
             
-            console.log(result[0].creatorId + ' ' + req.session.user._id)
+            // console.log(result[0].creatorId + ' ' + req.session.user._id)
             console.log(result);
             console.log(images);
             console.log(iscreator);
@@ -101,6 +101,11 @@ router.post('/t/:id/reply', upload.single('image'), function(req, res, next){
     Task.findOne({_id:req.params.id, active: true})
     .exec()
     .then((result) => {
+        if (!result.session){
+            res.redirect('/users/login');
+            return;
+        }
+
 
         if (result.creatorId === req.session.user._id.toString()) {
             throw new Error('Creator can\'t reply to own task');
