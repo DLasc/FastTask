@@ -24,6 +24,25 @@ $('document').ready(function(){
     // $('#navprofilepic').click(function(){
     //     $('#dropdown').toggle()
     // })
+    $('#openreply').click(function(){
+        $.ajax(window.location.pathname + '/openreply', {
+            success: function(result, status, xhr){
+                if (result.replies){
+                    $('#replyparagraph').html(result.replies.textcontent);
+                    if (result.filepath){
+                        $('#replyimage').show()
+                        $('#replyimage').attr('src', result.replies.filepath);
+                    }
+                    else { $('#replyimage').hide()}
+                }
+                else{
+                    $('#replyparagraph').html('');
+                    $('#replyimage').hide()
+                    // $('#replyimage').attr('src', 'data:');
+                }
+            }
+        })
+    })
 
     $('#choosereply').click(function(){
         $.ajax(window.location.pathname + '/choosereply', {

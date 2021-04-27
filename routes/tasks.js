@@ -101,7 +101,7 @@ router.post('/t/:id/reply', upload.single('image'), function(req, res, next){
     Task.findOne({_id:req.params.id, active: true})
     .exec()
     .then((result) => {
-        if (!result.session){
+        if (!req.session){
             res.redirect('/users/login');
             return;
         }
@@ -142,6 +142,18 @@ router.post('/t/:id/reply', upload.single('image'), function(req, res, next){
             .catch()
         }})
     .catch()
+})
+
+router.get('/t/:id/openreply', function(req, res, next){
+    Task.find({_id: req.params.id}).lean().exec()
+    .then((result) =>{
+        if (req.session.user._id.toString() === result[0].creatorId){
+            Reply.findOne({active: true, replytotask: req.params.id}).sort({timestamp:1}).exec()
+            .then((reply) =>{
+                res.json({reply: reply})
+            })
+        }
+    }).catch()
 })
 
 router.get('/t/:id/nextreply', function(req, res, next){
