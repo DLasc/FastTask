@@ -20,7 +20,26 @@ function closeReplies(){
 
 
 $('document').ready(function(){
-
+    $('#reply').submit(function(e){
+        // console.log('posting reply')
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            url: window.location.pathname + '/reply',
+            type: 'POST',
+            data: formData,
+            success: function(result, status, xhr){
+                if (result.success){
+                    closeForm();
+                    $('.replythankyou').show();
+                    $('#openreplyform').hide();
+                }
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
     // $('#navprofilepic').click(function(){
     //     $('#dropdown').toggle()
     // })
@@ -55,39 +74,31 @@ $('document').ready(function(){
                 
             }
         })
-
-
-
     })
     //nextreply function
     $('#nextreply').click(function(){
         // if ($('#replyimage').is(':visible')){
-            $.ajax(window.location.pathname + '/nextreply', {
-                // dataType: 'json',
-                success: function(result, status, xhr){
-                    // console.log(result);
-                    // console.log(status)
-                    // console.log(xhr)
-                    if (result.replies){
-                        $('#replyparagraph').html(result.replies.textcontent);
-                        if (result.replies.filepath !== '/images/null'){
-                            $('#replyimage').show()
-                            $('#replyimage').attr('src', result.replies.filepath);
-                        }
-                        else { $('#replyimage').hide()}
+        $.ajax(window.location.pathname + '/nextreply', {
+            // dataType: 'json',
+            success: function(result, status, xhr){
+                // console.log(result);
+                // console.log(status)
+                // console.log(xhr)
+                if (result.replies){
+                    $('#replyparagraph').html(result.replies.textcontent);
+                    if (result.replies.filepath !== '/images/null'){
+                        $('#replyimage').show()
+                        $('#replyimage').attr('src', result.replies.filepath);
                     }
-                    else{
-                        $('#replyparagraph').html('');
-                        $('#replyimage').hide()
-                        // $('#replyimage').attr('src', 'data:');
-                    }
-                    
+                    else { $('#replyimage').hide()}
                 }
-            })
-        // }
-        // else {
-            // window.location.replace(window.location.pathname)
-        // }
-        
+                else{
+                    $('#replyparagraph').html('');
+                    $('#replyimage').hide()
+                    // $('#replyimage').attr('src', 'data:');
+                }
+                
+            }
+        })
     })
 })

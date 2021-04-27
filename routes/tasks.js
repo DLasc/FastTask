@@ -98,6 +98,7 @@ router.get('/t/:id', function(req, res, next){
 });
 
 router.post('/t/:id/reply', upload.single('image'), function(req, res, next){
+    // console.log('reply posted')
     Task.findOne({_id:req.params.id, active: true})
     .exec()
     .then((result) => {
@@ -121,24 +122,10 @@ router.post('/t/:id/reply', upload.single('image'), function(req, res, next){
                 creatorId: req.session.user._id
             });
             reply.save()
-            .then(//(saveresult) => {
-                // if (req.file){
-                //     var replyimage = new ReplyImage({ 
-                //         replyid: reply._id,
-                //         filepath: req.file.originalname,
-                //         creator: reply.creator
-                //     });
-                //     replyimage.save()
-                //     .then((image)=>{
-                        
-                //     })
-                //     .catch()
-                // }
-                // else {
-
-                // }
-            // })
-            )
+            .then((reply) => {
+                // res.redirect('/tasks/');
+                res.json({success: true})
+            })
             .catch()
         }})
     .catch()

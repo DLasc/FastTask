@@ -70,18 +70,19 @@ router.post('/signup', function (req, res, next) {
 
 router.post('/login', function (req, res, next) {
 
-
+  console.log('logging in')
 
   User.find({ username: req.body.uname })
     .exec()
     .then(user => {
       if (user.length < 1) {
-        console.log("no user found");
+        res.render('users/login', {errors: 'Invalid User'})
       }
       else {
         bcrypt.compare(req.body.password, user[0].password, (err, result) => {
           if (err) {
             console.log(err);
+            
           } else {
             if (result) {
               req.session.isAuth = true;
@@ -90,13 +91,18 @@ router.post('/login', function (req, res, next) {
               // jwt.sign({email: user[0].email, 
               // userId: user[0]._id});
             }
+            else{
+              res.render('users/login', {errors: 'Invalid Password'})
+            }
           }
 
         })
       }
 
     })
-    .catch()
+    .catch((err) =>{
+
+    })
 
 
 

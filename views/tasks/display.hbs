@@ -19,9 +19,9 @@
 
             {{#unless ../iscreator}}
                 {{#if this.active}}
-                <button onclick='openForm()'>Reply</button>
+                <button onclick='openForm()' id='openreplyform'>Reply</button>
                 <div id='replyForm'>
-                    <form action='/tasks/t/{{this._id}}/reply' method='post' enctype='multipart/form-data'>
+                    <form id='reply' action='/tasks/t/{{this._id}}/reply' method='post' enctype='multipart/form-data'>
                         <textarea type='text' id='textreply' name='textreply' rows='10' cols='30' maxlength='500'></textarea>
                         <input type='file' name='image'>
                         <button type="submit" value='submit'>Submit</button>
@@ -51,6 +51,10 @@
             </div>
                 {{/if}}
             {{/if}}
+
+            <div class='replythankyou'>
+                <h1>Thank you for your reply!</h1>
+            </div>
                 <!--<button id='nextreply'>Next Reply</button>-->
 
             

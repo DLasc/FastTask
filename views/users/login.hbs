@@ -1,6 +1,10 @@
 <div class='form'>
     <h1>Login</h1>
-
+    {{#if errors}}
+        <div class='errorbox'>
+            {{errors}}
+        </div>
+    {{/if}}
     <form action='/users/login' method='post'>
         <label for="uname">Username</label><br>
         <input type="text" id="uname" name="uname"><br>

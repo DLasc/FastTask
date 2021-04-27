@@ -33,3 +33,12 @@
     background-attachment: fixed;
     
   }
+
+  .errorbox {
+      background-color: rgb(255, 137, 137);
+      padding: 5px;
+      border-style: solid;
+      border-color: red;
+      min-width: 50%;
+      display:inline-block;
+  }
