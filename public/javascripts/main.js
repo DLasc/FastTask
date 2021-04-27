@@ -27,11 +27,12 @@ $('document').ready(function(){
     $('#openreply').click(function(){
         $.ajax(window.location.pathname + '/openreply', {
             success: function(result, status, xhr){
-                if (result.replies){
-                    $('#replyparagraph').html(result.replies.textcontent);
-                    if (result.filepath){
+                console.log(result.reply)
+                if (result.reply){
+                    $('#replyparagraph').html(result.reply.textcontent);
+                    if (result.reply.filepath !== '/images/null'){
                         $('#replyimage').show()
-                        $('#replyimage').attr('src', result.replies.filepath);
+                        $('#replyimage').attr('src', result.reply.filepath);
                     }
                     else { $('#replyimage').hide()}
                 }
@@ -60,7 +61,7 @@ $('document').ready(function(){
     })
     //nextreply function
     $('#nextreply').click(function(){
-        if ($('#replyimage').is(':visible')){
+        // if ($('#replyimage').is(':visible')){
             $.ajax(window.location.pathname + '/nextreply', {
                 // dataType: 'json',
                 success: function(result, status, xhr){
@@ -69,7 +70,7 @@ $('document').ready(function(){
                     // console.log(xhr)
                     if (result.replies){
                         $('#replyparagraph').html(result.replies.textcontent);
-                        if (result.filepath){
+                        if (result.replies.filepath !== '/images/null'){
                             $('#replyimage').show()
                             $('#replyimage').attr('src', result.replies.filepath);
                         }
@@ -83,10 +84,10 @@ $('document').ready(function(){
                     
                 }
             })
-        }
-        else {
-            window.location.replace(window.location.pathname)
-        }
+        // }
+        // else {
+            // window.location.replace(window.location.pathname)
+        // }
         
     })
 })

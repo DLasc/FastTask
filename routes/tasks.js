@@ -41,7 +41,7 @@ router.get('/', function(req, res, next){
         
     });
     var tasks;
-    Task.find({active: true}).sort({timestamp:-1}).lean().exec(function(err, result){
+    Task.find({active: true}).sort({active: -1, timestamp:-1}).lean().exec(function(err, result){
         tasks = result;
         console.log(typeof(tasks));
         res.render('tasks', {title: 'Tasks', tasks: tasks})
@@ -158,9 +158,9 @@ router.get('/t/:id/openreply', function(req, res, next){
 
 router.get('/t/:id/nextreply', function(req, res, next){
     console.log('entered correct route')
-    Task.find({_id: req.params.id, active: true}).lean().exec()
+    Task.findOne({_id: req.params.id, active: true}).lean().exec()
     .then((result) =>{
-        if (req.session.user._id.toString() === result[0].creatorId){
+        if (req.session.user._id.toString() === result.creatorId){
             Reply.findOneAndUpdate({active: true, replytotask: req.params.id}, {active:false}).sort({timestamp:1}).exec()
             .then((reply)=>{
                 reply.active = false;
@@ -205,17 +205,18 @@ router.get('/t/:id/choosereply', function(req, res, next){
         if (req.session.user._id.toString() === result.creatorId){
             result.active = false;
             result.save()
-            User.findById(result.creatorId).exec()
-            .then((user) =>{
-                user.redcoins += result.value;
-                user.save();
-            }).catch()
+            
             Reply.find({active: true, replytotask: req.params.id}).sort({timestamp:1}).exec()
             .then((replies) =>{
                 replies.forEach((element, index) => {
                     if (index === 0){
                         element.chosen = true;
                         element.save();
+                        User.findById(element.creatorId).exec()
+                        .then((user) =>{
+                            user.redcoins += result.value;
+                            user.save();
+                        }).catch()
                     }
                     else{
                         element.active = false;
@@ -286,7 +287,7 @@ router.post('/create', isAuth, upload.array('image', 10), function(req, res, nex
 
 router.get('/:username', isAuth, function(req, res, next){
     console.log('infunc')
-    Task.find({creator: req.params.username}).sort({timestamp:-1}).lean()
+    Task.find({creator: req.params.username}).sort({active: -1, timestamp:-1}).lean()
     .exec()
     .then(result =>
         res.render('tasks', {tasks: result}) 

@@ -35,11 +35,12 @@
             {{/unless}}
 
             {{#if ../iscreator}}
-            <button onclick='openReplies()'>Replies</button>
+            {{!-- <button onclick='openReplies()' id='openreply'>Replies</button> --}}
+            <button onclick='openReplies()' id='openreply'>Replies</button>
             <div id='replyDisplay'>
                 {{#if ../replies}}
                 <p id='replyparagraph'>{{../replies.textcontent}}</p>
-                <img id='replyimage' src='{{../replies.filepath}}' width='30%'>
+                <img id='replyimage' src='{{../replies.filepath}}' width='30%' onContextMenu="return false;">
                 <!--<form action='/tasks/t/{{this._id}}/nextreply' method='post'> --}}-->
                 {{#if this.active}}
                     <button id='nextreply' type='submit'>Next Reply</button>

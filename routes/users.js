@@ -121,7 +121,7 @@ router.get('/:user', function (req, res, next) {
     .exec()
     .then(result => {
       console.log(result[0]);
-      Task.find({ creatorId: result[0]._id }).sort({ timestamp: -1 }).lean()
+      Task.find({ creatorId: result[0]._id }).sort({ active: -1, timestamp: -1 }).lean()
         .exec()
         .then(tasks => {
           console.log(tasks);
