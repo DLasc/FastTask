@@ -11,12 +11,14 @@
         <ul>
         {{#each tasks}}
             <li {{#unless this.active}} class='inactive' {{/unless}}>
-                <a class='taskname' href='/tasks/t/{{this._id}}'>
-                    <h1>{{ this.title }} </h1>
-                </a>
-                <p class='value'><i class="material-icons taskredcoin">camera</i><span class="numcoins">{{numformat this.value }}</span></p>
-                <br> 
-                <p>{{this.description}}</p>
+                <div class='taskheader'>
+                    <a class='taskname' href='/tasks/t/{{this._id}}'>
+                        <h1>{{ this.title }} </h1>
+                    </a>
+                    <p class='value'><i class="material-icons taskredcoin">camera</i><span class="numcoins">{{numformat this.value }}</span></p>
+                
+                </div>
+                <p class='taskbody'>{{this.description}}</p>
                 <p class='creator'>from {{this.creator}} at {{dateformat this.timestamp}}</p>
             </li>
         {{else}}

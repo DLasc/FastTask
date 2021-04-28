@@ -16,8 +16,8 @@
                     <h1>{{ this.title }} </h1>
                 </a>
                 <p class='value'><i class="material-icons taskredcoin">camera</i><span class="numcoins">{{numformat this.value }}</span></p>
-                <br> 
-                <p>{{this.description}}</p>
+            
+                <p class='taskbody'>{{this.description}}</p>
                 <p class='creator'>from {{this.creator}} at {{dateformat this.timestamp}}</p>
             </li>
         {{else}}

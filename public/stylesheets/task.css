@@ -85,6 +85,9 @@
 
 .taskgrid ul li {
     /* margin: 0px 50px 100px 50px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin-bottom:20px;
     border: solid 1px var(--black);
     /* margin-bottom: 20px; */
@@ -94,9 +97,25 @@
     /* background-color: var(--white); */
     width: 20em;
     height: 20em;
-    display: inline-block;
+    /* display: inline-block; */
     
 }
+
+.taskbody {
+    flex-grow: 4;
+    /* overflow: hidden; */
+    /* hyphens: auto; */
+    overflow-y: hidden;
+    overflow-wrap: break-word;
+    /* text-overflow: ellipsis; */
+    /* text-overflow: ellipsis; */
+
+    /* Required for text-overflow to do anything */
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    
+}
+
 
 .taskname, .taskname:link, .taskname:visited, .taskname:hover, .taskname:active{
     text-decoration: none;
