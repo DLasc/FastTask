@@ -52,6 +52,7 @@ header {
   height: 80px;
   background-color: var(--white);
   margin: 0 0;
+  border-bottom: solid 1px var(--black);
   /* padding: 0 20%; */
   
 
@@ -95,19 +96,21 @@ header .navigation {
 
 .navigation .navbutton {
   border-style: solid;
-  border-color: var(--lightcomplement);
+  background-color: var(--black);
+  border-color: var(--white);
   border-radius: 50vh;
   padding: 10px 20px;
   margin-left: 10px;
-  color: var(--black);
+  color: var(--white);
   text-decoration: none;
   font-size: 20px;
   transition-property: background-color, color;
   transition-duration: 0.2s;
 }
 .navigation .navbutton:hover {
-  background-color:var(--lightcomplement);
-  color: var(--white);
+  background-color:var(--white);
+  border-color: var(--black);
+  color: var(--black);
   cursor: pointer;
 }
 
@@ -132,7 +135,7 @@ header .navigation {
   transition: 0.2s ease;
   
   border-radius: 50%;
-  border-color: var(--lightcomplement);
+  border-color: var(--black);
   border-style: solid;
   border-width: 2px;
   
@@ -175,6 +178,7 @@ header .navigation {
 
 .submenu{
   /* all:unset; */
+  background-color: var(--black);
   display:block;
   width:95%;
   margin-left: auto;
@@ -183,12 +187,12 @@ header .navigation {
   border-top-style: none;
   border-bottom-style:none;
   margin-top:5px;
-  border-color: var(--lightcomplement);
+  border-color: var(--black);
   justify-content: center;
   /* border-radius: 50vh; */
   padding: 10px 20px;
   /* margin-left: 10px; */
-  color: var(--black);
+  color: var(--white);
   text-decoration: none;
   font-size: 20px;
   transition-property: background-color, color;
@@ -197,8 +201,8 @@ header .navigation {
 
 button.submenu:hover{
   cursor:pointer;
-  background-color:var(--lightcomplement);
-  color: var(--white);
+  background-color:var(--white);
+  color: var(--black);
   cursor: pointer;
 }
 
@@ -208,36 +212,7 @@ button.submenu:hover{
 
 
 
-.home {
-  max-width: 80%;
-  margin: 1.5in auto 0 auto;
-  padding: 20px;
-  /* background-color: white; */
-  text-align: center;
-}
 
-.home button {
-  border-style: solid;
-  border-color: var(--lightcomplement);
-  width: 30%;
-  border-radius: 50vh;
-  padding: 10px 20px;
-  margin-left: 10px;
-  color: var(--black);
-  text-decoration: none;
-  font-size: 20px;
-  transition-property: background-color, color;
-  transition-duration: 0.2s;
-}
-
-.home button:hover { 
-  background-color:var(--lightcomplement);
-  color: var(--white);
-  cursor: pointer;;
-}
-.home button:hover { 
-  outline:none;
-}
 
 .form {
   width: 3in;

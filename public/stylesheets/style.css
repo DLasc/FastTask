@@ -1,17 +1,25 @@
 :root {
     --background:0;
     --var2:0;
-    --contrast:#ff331f;
+    /* --contrast:#ff331f;
     --white:#fbfbff;
     --black:#0d0106;
     --lightcomplement:#657ed4;
-    --darkcomplement:#3626a7;
+    --darkcomplement:#3626a7; */
+    --contrast:#ff101f;
+    /* --white:#83a0a0; */
+    --white: #f1faee;
+    --black:#16302b;
+    --lightcomplement:#f9b9f2;
+    --darkcomplement:#bca0bc;
+    /* --newcolor: #FFFFC7; */
   }
   
   html{
     width:100%;
   }
   body {
+    /* background-color: var(--black); */
     max-width: 100%;
     /* width:100%; */
     padding: 0px;
@@ -27,7 +35,7 @@
     ); */
     /* background: radial-gradient(circle at center, #3749b1, #3b52e9); */
     /* background: radial-gradient(circle at center, var(--lightcomplement), var(--darkcomplement)); */
-    background: var(--darkcomplement);
+    background: var(--white);
   
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -41,4 +49,47 @@
       border-color: red;
       min-width: 50%;
       display:inline-block;
+  }
+
+  .home {
+    max-width: 100%;
+    /* margin: 1.5in auto 0 auto; */
+    padding: 40px;
+    /* background-color: white; */
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-image: url('/images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  
+  .home button {
+    font-weight: bolder;
+    font-size: 2em;
+    border-style: solid;
+    border-color: var(--white);
+    background-color: var(--black);
+    width: 30%;
+    height: 50vh;
+    border-radius: 5px;
+    padding: 10px 20px;
+    /* margin-left: 10px; */
+    
+    color: var(--white);
+    text-decoration: none;
+    /* font-size: 20px; */
+    transition-property: background-color, color;
+    transition-duration: 0.2s;
+  }
+  
+  .home button:hover { 
+    background-color:var(--white);
+    border-color:var(--black);
+    color: var(--black);
+    cursor: pointer;;
+  }
+  .home button:hover { 
+    outline:none;
   }

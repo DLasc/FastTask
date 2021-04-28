@@ -9,6 +9,7 @@ var User = require('../models/user');
 const { rawListeners } = require('../app');
 const e = require('express');
 var Task = require('../models/task');
+const Password = require('../models/password');
 
 
 
@@ -49,16 +50,22 @@ router.post('/signup', function (req, res, next) {
         var user = new User({
           username: req.body.uname,
           email: req.body.email,
-          password: result
+          // password: result
         });
         user.save()
-          .then(result => {
-            req.session.isAuth = true;
-            req.session.user = user;
-            res.redirect('/tasks');
-          }
-          )
-          .catch((err) => console.log(err));
+          .then(newuser => {
+            var password = new Password({
+              password: result,
+              ownerid: user._id
+            })
+            password.save()
+            .then( newpass =>{
+              req.session.isAuth = true;
+              req.session.user = user;
+              res.redirect('/tasks');
+            }).catch()
+          
+          }).catch((err) => console.log(err));
 
       }
     });
@@ -79,24 +86,28 @@ router.post('/login', function (req, res, next) {
         res.render('users/login', {errors: 'Invalid User'})
       }
       else {
-        bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-          if (err) {
-            console.log(err);
-            
-          } else {
-            if (result) {
-              req.session.isAuth = true;
-              req.session.user = user[0];
-              res.redirect('/tasks');
-              // jwt.sign({email: user[0].email, 
-              // userId: user[0]._id});
+        Password.findOne({ownerid: user[0]._id}).exec()
+        .then(password =>{
+          bcrypt.compare(req.body.password, password.password, (err, result) => {
+            if (err) {
+              console.log(err);
+              
+            } else {
+              if (result) {
+                req.session.isAuth = true;
+                req.session.user = user[0];
+                res.redirect('/tasks');
+                // jwt.sign({email: user[0].email, 
+                // userId: user[0]._id});
+              }
+              else{
+                res.render('users/login', {errors: 'Invalid Password'})
+              }
             }
-            else{
-              res.render('users/login', {errors: 'Invalid Password'})
-            }
-          }
-
-        })
+  
+          })
+        }).catch()
+     
       }
 
     })

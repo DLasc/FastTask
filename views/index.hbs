@@ -1,7 +1,29 @@
 
 
 <div class='home'>
-    <h1> </h1>
     <button onclick="document.location='/tasks/create'">Create a Task</button>
     <button onclick="document.location='/tasks'">View Tasks</button>
+</div>
+
+<div class='taskgrid'>
+    <h2>Latest Tasks</h2>
+    
+        <ul>
+        {{#each tasks}}
+            <li {{#unless this.active}} class='inactive' {{/unless}}>
+                <a class='taskname' href='/tasks/t/{{this._id}}'>
+                    <h1>{{ this.title }} </h1>
+                </a>
+                <p class='value'><i class="material-icons taskredcoin">camera</i><span class="numcoins">{{numformat this.value }}</span></p>
+                <br> 
+                <p>{{this.description}}</p>
+                <p class='creator'>from {{this.creator}} at {{dateformat this.timestamp}}</p>
+            </li>
+        {{else}}
+            <li>
+                <h1>No Tasks Right Now. Please check back later, or <a href='/tasks/create'>Create a Task!</a></h1>
+            </li>
+        {{/each}}
+    
+    </ul>
 </div>

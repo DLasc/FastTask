@@ -1,49 +1,104 @@
 .creator {
     color: grey;
-  }
+}
   
   
   
-  .tasklist {
+.tasklist {
     width: 8in;
     margin-top: 1.5in;
     margin-left: auto;
     margin-right: auto;
     /* background-color: grey; */
-    padding:0;
+    padding:4px;
     /* text-align: center; */
-  }
-  
-  .tasklist ul{
+}
+
+.tasklist ul{
     border-radius:4px;
     list-style-type: none;
     width:100%;
     margin: auto;
-    padding:0 6px;
+    padding:6px 6px;
     background-color: var(--darkcomplement);
-  }
-  
-  .tasklist ul li{
+}
+
+
+.tasklist ul li{
     border-radius:4px;
     height: 2in;
     background-color: var(--white);
-    margin: 0 0 10px;
+    margin-top: 6px;
     padding: 20px;
-  }
-  
-  .task {
+}
+
+.tasklist ul li:first-child{
+    margin-top:0;
+}
+
+
+
+.task {
     width: 10in;
     border-radius: 4px;
     background-color: var(--white);
     margin: 1.5in auto 0 auto;
     padding: 20px;
-  
-  }
 
-  .tasklist ul li.inactive {
+}
+
+.tasklist ul li.inactive {
     background-color: rgb(190, 190, 190);
-  }
+}
 
-  .replythankyou {
-      display: none;
-  }
+.replythankyou {
+    display: none;
+}
+
+
+.taskgrid {
+    
+    margin-top: 5em;
+
+}
+.taskgrid h2{
+    color:var(--black);
+    text-align: center;
+    margin: 0 auto 2em auto;
+    font-size: 2em;
+}
+
+.taskgrid ul {
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 50%;
+    width: 68%;
+    padding: 6px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    list-style-type: none;
+    /* background-color: var(--darkcomplement); */
+}
+
+.taskgrid ul li {
+    /* margin: 0px 50px 100px 50px; */
+    margin-bottom:20px;
+    border: solid 1px var(--black);
+    /* margin-bottom: 20px; */
+    border-radius: 5px;
+    padding: 10px;
+    background-color:white;
+    /* background-color: var(--white); */
+    width: 20em;
+    height: 20em;
+    display: inline-block;
+    
+}
+
+.taskname, .taskname:link, .taskname:visited, .taskname:hover, .taskname:active{
+    text-decoration: none;
+    color: var(--black);
+}
