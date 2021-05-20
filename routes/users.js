@@ -33,60 +33,85 @@ router.get('/signup', function (req, res, next) {
   res.render('users/signup');
 });
 
+
+
+
+
 router.post('/signup', function (req, res, next) {
   var errors = [];
   User.find({username:req.body.uname}).exec()
-  .then( user => {
-    if (user) errors.push("Username Taken");
-  })
-  .catch(err => {});
-  User.find({email:req.body.email}).exec()
-  .then(user => {
-    if (user) errors.push("Account with email exists")
-  })
-  .catch(err => {});
-  
-  if (req.body.password.length < 4) {
-    errors.push('password too short');
-    // console.error('password too short');
-  }
-  else if (req.body.password !== req.body.cpassword) {
-    errors.push('password and confirm password not the same');
-    // console.error('password and confirm password not the same')
-  }
-  if (errors) {
-    res.render('users/signup', {errors: errors});
-  }
+  .then( nameuser => {
 
-  else {
+    if (nameuser.length > 0) errors.push("Username Taken");
 
-    bcrypt.hash(req.body.password, 10, function (err, result) {
-      if (err) {
-        console.log(err)
-      } else {
-        var user = new User({
-          username: req.body.uname,
-          email: req.body.email,
-          // password: result
-        });
-        user.save()
-          .then(newuser => {
-            var password = new Password({
-              password: result,
-              ownerid: user._id
-            })
-            password.save()
-            .then( newpass =>{
-              req.session.isAuth = true;
-              req.session.user = user;
-              res.redirect('/tasks');
-            }).catch()
-          
-          }).catch((err) => console.log(err));
+    User.find({email:req.body.email}).exec()
+    .then(emailuser => {
+      if (emailuser.length > 0) errors.push("Account with email exists")
 
+
+
+      if (req.body.password.length < 4) {
+        errors.push('password too short');
+        // console.error('password too short');
       }
-    });
-  }
+      else if (req.body.password !== req.body.cpassword) {
+        errors.push('password and confirm password not the same');
+        // console.error('password and confirm password not the same')
+      }
+      console.log(errors.length)
+      console.log(errors)
+      if (errors.length > 0) {
+        res.render('users/signup', {errors: errors});
+      }
+    
+      else {
+    
+        bcrypt.hash(req.body.password, 10, function (err, result) {
+          if (err) {
+            console.log(err)
+          } else {
+            var user = new User({
+              username: req.body.uname,
+              email: req.body.email,
+              // password: result
+            });
+            user.save()
+              .then(newuser => {
+                var password = new Password({
+                  password: result,
+                  ownerid: user._id
+                })
+                password.save()
+                .then( newpass =>{
+                  req.session.isAuth = true;
+                  req.session.user = user;
+                  res.redirect('/tasks');
+                }).catch()
+              
+              }).catch((err) => console.log(err));
+    
+          }
+        });
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+    })
+    .catch(err => {console.log(err)});
+
+  })
+  .catch(err => {console.log(err)});
+  
+  
 
 
 });
