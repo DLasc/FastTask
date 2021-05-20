@@ -93,3 +93,31 @@
   .home button:hover { 
     outline:none;
   }
+
+  input[type=submit], button{
+    border-style: solid;
+    background-color: var(--black);
+    border-color: var(--white);
+    border-radius: 50vh;
+    padding: 10px 20px;
+    margin-left: 10px;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 20px;
+    transition-property: background-color, color;
+    transition-duration: 0.2s;
+  }
+  input[type=submit]:hover, button:hover {
+    background-color:var(--white);
+    border-color: var(--black);
+    color: var(--black);
+    cursor: pointer;
+  }
+  
+  input[type=submit]:active, button:active {
+    outline-style: none;
+  }
+  input[type=submit]:focus, button:focus {
+    outline-style: none;
+  }
+  

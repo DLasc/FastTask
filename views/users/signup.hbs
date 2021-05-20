@@ -1,6 +1,13 @@
 <div class='form'>
 
   <h1>Sign Up</h1>
+    {{#if errors}}
+    {{#each errors}}
+        <div class='errorbox'>
+            {{this}}
+        </div>
+    {{/each}}
+    {{/if}}
   <form action='/users/signup' method='post'>
       <label for='uname'>Username</label><br>
       <input type='text' id='uname' name='uname' placeholder='John123' required><br>

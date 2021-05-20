@@ -34,11 +34,28 @@ router.get('/signup', function (req, res, next) {
 });
 
 router.post('/signup', function (req, res, next) {
-  if (req.body.password !== req.body.cpassword) {
-    console.error('password and confirm password not the same')
+  var errors = [];
+  User.find({username:req.body.uname}).exec()
+  .then( user => {
+    if (user) errors.push("Username Taken");
+  })
+  .catch(err => {});
+  User.find({email:req.body.email}).exec()
+  .then(user => {
+    if (user) errors.push("Account with email exists")
+  })
+  .catch(err => {});
+  
+  if (req.body.password.length < 4) {
+    errors.push('password too short');
+    // console.error('password too short');
   }
-  else if (req.body.password.length < 4) {
-    console.error('password too short');
+  else if (req.body.password !== req.body.cpassword) {
+    errors.push('password and confirm password not the same');
+    // console.error('password and confirm password not the same')
+  }
+  if (errors) {
+    res.render('users/signup', {errors: errors});
   }
 
   else {

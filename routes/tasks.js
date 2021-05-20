@@ -37,9 +37,9 @@ var upload = multer({ storage: storage});
 // var Task = mongoose.model('Task', taskSchema);
 
 router.get('/', function(req, res, next){
-    Task.countDocuments({}).exec(function(err, count){
+    // Task.countDocuments({}).exec(function(err, count){
         
-    });
+    // });
     var tasks;
     Task.find({active: true}).sort({active: -1, timestamp:-1}).lean().exec(function(err, result){
         tasks = result;

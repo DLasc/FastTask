@@ -179,6 +179,7 @@ header .navigation {
 .submenu{
   /* all:unset; */
   background-color: var(--black);
+  border-radius:0;
   display:block;
   width:95%;
   margin-left: auto;
