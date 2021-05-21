@@ -15,7 +15,20 @@ var ReplyImage = require('../models/replyimage');
 const User = require('../models/user');
 var storage = multer.diskStorage({ 
     destination: function(req, file, cb){
-        cb(null, __dirname + '/../public/images')
+
+        var regex = new RegExp('/\/t\/\w+\/reply/')
+        console.log(req.path)
+        console.log(req.method)
+        console.log(req.path.match(/\/t\/\w+\/reply/))
+        console.log(req.method === 'POST')
+        
+
+        if (req.path.match(/\/t\/\w+\/reply/) && req.method === 'POST') {
+            cb(null, __dirname + '/../public/images/private')
+        }  
+        else {
+            cb(null, __dirname + '/../public/images')
+        }
     },
     filename: function (req, file, cb){
         var newname = file.fieldname + '-' + req.session.user._id.toString() + '-' + Date.now() + path.extname(file.originalname);
@@ -43,7 +56,7 @@ router.get('/', function(req, res, next){
     var tasks;
     Task.find({active: true}).sort({active: -1, timestamp:-1}).lean().exec(function(err, result){
         tasks = result;
-        console.log(typeof(tasks));
+        // console.log(typeof(tasks));
         res.render('tasks', {title: 'Tasks', tasks: tasks})
     });
     
@@ -57,7 +70,7 @@ router.get('/create', function(req, res, next){
 router.get('/t/:id', function(req, res, next){
     
     var id = req.params.id; 
-    console.log(id)
+    // console.log(id)
     Task.find({_id: id}).lean()
     .exec()
     .then((result) =>{
@@ -75,8 +88,8 @@ router.get('/t/:id', function(req, res, next){
             if (iscreator){
                 Reply.findOne({active: true, replytotask: id}).sort({timestamp:1}).lean().exec()
                 .then((replies)=>{
-                    console.log(result)
-                    console.log(replies);
+                    // console.log(result)
+                    // console.log(replies);
                     res.render('tasks/display', {tasks: result, images: images, iscreator: iscreator, replies: replies})
                 })
                 .catch();
@@ -85,9 +98,9 @@ router.get('/t/:id', function(req, res, next){
             // imagepaths = images;
             
             // console.log(result[0].creatorId + ' ' + req.session.user._id)
-            console.log(result);
-            console.log(images);
-            console.log(iscreator);
+            // console.log(result);
+            // console.log(images);
+            // console.log(iscreator);
             res.render('tasks/display', {tasks: result, images: images, iscreator: iscreator, replies: null})
             }
         })
@@ -97,7 +110,7 @@ router.get('/t/:id', function(req, res, next){
     
 });
 
-router.post('/t/:id/reply', upload.single('image'), function(req, res, next){
+router.post('/t/:id/reply', isAuth, upload.single('image'), function(req, res, next){
     // console.log('reply posted')
     Task.findOne({_id:req.params.id, active: true})
     .exec()
@@ -109,14 +122,15 @@ router.post('/t/:id/reply', upload.single('image'), function(req, res, next){
 
 
         if (result.creatorId === req.session.user._id.toString()) {
-            throw new Error('Creator can\'t reply to own task');
+            // throw new Error('Creator can\'t reply to own task');
+            res.send('Creator can\'t reply to own Task');
         }
         else{
             if (req.file) {var filepath = req.file.originalname}
             else{var filepath = null}
             var reply = new Reply({
                 replytotask: req.params.id,
-                filepath: '/images/' + filepath,
+                filepath: '/images/private/' + filepath,
                 textcontent: req.body.textreply,
                 creator: req.session.user.username,
                 creatorId: req.session.user._id
@@ -126,28 +140,37 @@ router.post('/t/:id/reply', upload.single('image'), function(req, res, next){
                 // res.redirect('/tasks/');
                 res.json({success: true})
             })
-            .catch()
+            .catch(err =>{
+                console.log(err);
+            })
         }})
-    .catch()
+    .catch(err =>{
+        console.log(err)
+    })
 })
 
-router.get('/t/:id/openreply', function(req, res, next){
+router.get('/t/:id/openreply', isAuth, function(req, res, next){
     Task.find({_id: req.params.id}).lean().exec()
     .then((result) =>{
         if (req.session.user._id.toString() === result[0].creatorId){
-            Reply.findOne({active: true, replytotask: req.params.id}).sort({timestamp:1}).exec()
+            Reply.findOne({active: true, replytotask: req.params.id}).sort({timestamp:1}).lean().exec()
             .then((reply) =>{
                 res.json({reply: reply})
             })
         }
+        else {
+            res.send('Can\'t open another user\'s Task\'s replies')
+        }
     }).catch()
 })
 
-router.get('/t/:id/nextreply', function(req, res, next){
-    console.log('entered correct route')
+router.get('/t/:id/nextreply', isAuth, function(req, res, next){
+    // console.log('entered correct route')
     Task.findOne({_id: req.params.id, active: true}).lean().exec()
     .then((result) =>{
         if (req.session.user._id.toString() === result.creatorId){
+            // console.log(req.session.user._id.toString())
+            // console.log(result.creatorId)
             Reply.findOneAndUpdate({active: true, replytotask: req.params.id}, {active:false}).sort({timestamp:1}).exec()
             .then((reply)=>{
                 reply.active = false;
@@ -157,7 +180,7 @@ router.get('/t/:id/nextreply', function(req, res, next){
                     .then((replies) =>{
 
                         // reply.shift()
-                        console.log(replies)
+                        // console.log(replies)
                         TaskImage.find({taskid: req.params.id}).lean().exec()
                         .then((images)=>{
                             // res.render('tasks/display', {tasks: result, iscreator: true, images: images, replies: replies})
@@ -181,24 +204,34 @@ router.get('/t/:id/nextreply', function(req, res, next){
                     }).catch()
             })
         }
+        else {
+            res.send('Can\'t access another user\'s Task\'s replies')
+        }
     })
     .catch()
     
 })
 
-router.get('/t/:id/choosereply', function(req, res, next){
+router.get('/t/:id/choosereply', isAuth, function(req, res, next){
     Task.findOne({_id: req.params.id, active: true}).exec()
-    .then((result)=>{
+    .then( result =>{
+        console.log(req.session.user._id.toString())
+        console.log(result.creatorId)
         if (req.session.user._id.toString() === result.creatorId){
-            result.active = false;
-            result.save()
+            
             
             Reply.find({active: true, replytotask: req.params.id}).sort({timestamp:1}).exec()
             .then((replies) =>{
+                // console.log(replies)
                 replies.forEach((element, index) => {
                     if (index === 0){
+
+                        result.active = false;
+                        result.save()
+
                         element.chosen = true;
                         element.save();
+
                         User.findById(element.creatorId).exec()
                         .then((user) =>{
                             user.redcoins += result.value;
@@ -209,18 +242,27 @@ router.get('/t/:id/choosereply', function(req, res, next){
                         element.active = false;
                         element.save();
                     }
-                    res.json({done: true,})
+                    res.json({done: true})
+                    
                 });
                 
             }).catch()
         }
-    }).catch()
+        else {
+            res.send('Can\'t access another user\'s Task\'s replies')
+        }
+    }).catch( err => {
+        console.log(err)
+    })
 })
 
 
 
 router.post('/create', isAuth, upload.array('image', 10), function(req, res, next){
-    if (req.body.title && req.body.description){
+    if (!req.session.isAuth){
+        res.redirect('/users/login')
+    }
+    if (req.body.title && req.body.description && req.body.value){
 
     
         var task = new Task({
@@ -253,27 +295,32 @@ router.post('/create', isAuth, upload.array('image', 10), function(req, res, nex
 
         Task.find({}).exec()
         .then(function(err, result){
-            console.log(result);
+            // console.log(result);
             res.redirect('/tasks')
         })
         .catch();
         
     }
     else {
-        console.log('exception')
+        var errors = []
+        // console.log('exception')
         if (!req.body.title){
-            
+            errors.push('No Title');
         }
         if (!req.body.description){
-
+            errors.push('No Description');
         }
+        if (!req.body.value){
+            errors.push('No Value');
+        }
+        res.send(errors)
 
     }
 });
 
 
 router.get('/:username', isAuth, function(req, res, next){
-    console.log('infunc')
+    // console.log('infunc')
     Task.find({creator: req.params.username}).sort({active: -1, timestamp:-1}).lean()
     .exec()
     .then(result =>

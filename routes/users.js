@@ -36,14 +36,17 @@ router.get('/signup', function (req, res, next) {
 
 
 
-
+// HANDLE USER SIGNUP REQUEST
 router.post('/signup', function (req, res, next) {
   var errors = [];
+
+  // CHECK IF USER WITH NAME EXISTS
   User.find({username:req.body.uname}).exec()
   .then( nameuser => {
 
     if (nameuser.length > 0) errors.push("Username Taken");
 
+    // THEN CHECK IF USER WITH EMAIL EXISTS
     User.find({email:req.body.email}).exec()
     .then(emailuser => {
       if (emailuser.length > 0) errors.push("Account with email exists")
@@ -51,21 +54,22 @@ router.post('/signup', function (req, res, next) {
 
 
       if (req.body.password.length < 4) {
-        errors.push('password too short');
+        errors.push('Password too short');
         // console.error('password too short');
       }
       else if (req.body.password !== req.body.cpassword) {
-        errors.push('password and confirm password not the same');
+        errors.push('Password and Confirm Password not the same');
         // console.error('password and confirm password not the same')
       }
       console.log(errors.length)
       console.log(errors)
       if (errors.length > 0) {
+        // SEND ERRORS IF ANY
         res.render('users/signup', {errors: errors});
       }
     
       else {
-    
+        // SALT AND HASH PASSWORD BEFORE STORING SEPARATELY
         bcrypt.hash(req.body.password, 10, function (err, result) {
           if (err) {
             console.log(err)
@@ -76,13 +80,16 @@ router.post('/signup', function (req, res, next) {
               // password: result
             });
             user.save()
+            // SAVE USER 
               .then(newuser => {
                 var password = new Password({
                   password: result,
                   ownerid: user._id
                 })
                 password.save()
+                // SAVE PASSWORD
                 .then( newpass =>{
+                  // CREATE SESSION
                   req.session.isAuth = true;
                   req.session.user = user;
                   res.redirect('/tasks');
@@ -93,18 +100,6 @@ router.post('/signup', function (req, res, next) {
           }
         });
       }
-
-
-
-
-
-
-
-
-
-
-
-
     })
     .catch(err => {console.log(err)});
 
