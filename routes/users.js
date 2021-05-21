@@ -52,7 +52,7 @@ router.post('/signup', function (req, res, next) {
       if (emailuser.length > 0) errors.push("Account with email exists")
 
 
-
+      // PASSWORD CHECKS
       if (req.body.password.length < 4) {
         errors.push('Password too short');
         // console.error('password too short');
@@ -111,18 +111,20 @@ router.post('/signup', function (req, res, next) {
 
 });
 
-
+// LOGIN ROUTE
 router.post('/login', function (req, res, next) {
 
-  console.log('logging in')
-
+  // console.log('logging in')
+  // CHECK IF USER EXISTS
   User.find({ username: req.body.uname })
     .exec()
     .then(user => {
+      // RETURN ERROR IF DOESNT EXIST
       if (user.length < 1) {
         res.render('users/login', {errors: 'Invalid User'})
       }
       else {
+        // CHECK USER PASSWORD
         Password.findOne({ownerid: user[0]._id}).exec()
         .then(password =>{
           bcrypt.compare(req.body.password, password.password, (err, result) => {
@@ -138,6 +140,7 @@ router.post('/login', function (req, res, next) {
                 // userId: user[0]._id});
               }
               else{
+                // RETURN ERROR IF INVALID PASSWORD
                 res.render('users/login', {errors: 'Invalid Password'})
               }
             }
@@ -156,6 +159,7 @@ router.post('/login', function (req, res, next) {
 
 });
 
+// CLEAR COOKIES AND DESTROY SESSION SERVER-SIDE ON LOGOUT
 router.post('/logout', function (req, res, next) {
   req.session.isAuth = false;
   req.session.username = null;
@@ -169,6 +173,7 @@ router.post('/logout', function (req, res, next) {
 });
 
 
+// SHOW USER'S PAGE WITH PROFILE AND TASKS
 router.get('/:user', function (req, res, next) {
 
   User.find({ username: req.params.user }).lean()

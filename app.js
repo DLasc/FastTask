@@ -41,6 +41,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(expressSession({secret: 'supersecret', saveUninitialized: false, resave: false, store: store}));
 
+
+//SET SOME VARIABLES ON EACH RESPONSE SO NAVBAR VARIABLES ARE ALWAYS AVAILABLE
 app.use(function(req, res, next){
   if (req.session.isAuth){
     res.locals.isAuth = true;
@@ -53,21 +55,24 @@ app.use(function(req, res, next){
   next();
 })
 
+// ROUTE TO PROTECT PRIVATE IMAGES BEFORE THEY'RE SERVED ASA STATIC RESOURCES
 app.use('/images/private/:imgname', function(req, res, next){
-  console.log('In route')
+  // console.log('In route')
   if (!req.session.isAuth) {
     res.sendStatus(401)
   }
-  console.log(req.path)
+  // console.log(req.path)
+  // FIND REPLY WITH IMAGE
   Reply.findOne({active:true, filepath: '/images/private/'+req.params.imgname}).exec()
   .then(result => {
-    console.log(result)
-
+    // console.log(result)
+    // MAKE SURE IT'S FIRST REPLY
     Reply.findOne({active: true, replytotask: result.replytotask}).exec()
     .then(firstreply => {
-      console.log(firstreply)
-      console.log(firstreply._id.str === result._id.str)
+      // console.log(firstreply)
+      // console.log(firstreply._id.str === result._id.str)
       if ( firstreply._id.str === result._id.str ){
+        //FIND TASK IT'S REPLYING TO TO FIND WHICH USER IS ALLOWED ACCESS
         Task.findOne({_id: result.replytotask}).exec()
         .then(task => {
           if (req.session.user._id.toString() === task.creatorId) {

@@ -16,11 +16,11 @@ const User = require('../models/user');
 var storage = multer.diskStorage({ 
     destination: function(req, file, cb){
 
-        var regex = new RegExp('/\/t\/\w+\/reply/')
-        console.log(req.path)
-        console.log(req.method)
-        console.log(req.path.match(/\/t\/\w+\/reply/))
-        console.log(req.method === 'POST')
+        // var regex = new RegExp('/\/t\/\w+\/reply/')
+        // console.log(req.path)
+        // console.log(req.method)
+        // console.log(req.path.match(/\/t\/\w+\/reply/))
+        // console.log(req.method === 'POST')
         
 
         if (req.path.match(/\/t\/\w+\/reply/) && req.method === 'POST') {
